@@ -14,7 +14,6 @@ object Reply {
             embeds.add(embed)
             val mention = AllowedMentionsBuilder()
             mention.repliedUser = false
-            this.allowedMentions = mention
         }
     }
     suspend fun MessageChannel.createMessage(embed : EmbedBuilder) {
@@ -22,7 +21,6 @@ object Reply {
             embeds.add(embed)
             val mention = AllowedMentionsBuilder()
             mention.repliedUser = false
-            this.allowedMentions = mention
         }
     }
 
@@ -34,12 +32,29 @@ object Reply {
             this.allowedMentions = mention
         }
     }
+    suspend fun Message.reply(embed : EmbedBuilder, isMention : Boolean) {
+        this.reply {
+            embeds.add(embed)
+            val mention = AllowedMentionsBuilder()
+            mention.repliedUser = isMention
+            this.allowedMentions = mention
+        }
+    }
 
     suspend fun Message.reply(message : String) {
         this.reply {
             content = message
             val mention = AllowedMentionsBuilder()
             mention.repliedUser = false
+            this.allowedMentions = mention
+        }
+    }
+
+    suspend fun Message.reply(message : String, isMention : Boolean) {
+        this.reply {
+            content = message
+            val mention = AllowedMentionsBuilder()
+            mention.repliedUser = isMention
             this.allowedMentions = mention
         }
     }
