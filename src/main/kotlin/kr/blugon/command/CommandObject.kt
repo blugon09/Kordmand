@@ -7,6 +7,29 @@ import dev.kord.core.entity.User
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
 
+fun Kord.createCommand(prefix : Char, command : String, commandEvent : suspend CommandEvent.()->Unit) {
+    val kord = this
+    kord.on<MessageCreateEvent> {
+        val user = message.author ?: return@on
+        val channel = message.channel
+
+        try {
+            if (message.content[0] != prefix) return@on
+        } catch (_: StringIndexOutOfBoundsException) {
+        }
+        if (user.isBot) return@on
+
+        val args = ArrayList<String>()
+        for (i in message.content.replace(prefix.toString(), "").split(" ")) {
+            args.add(i)
+        }
+        val cmd = args[0]
+        args.removeAt(0)
+
+        if (cmd != command) return@on
+        commandEvent(CommandEvent(cmd, args, user, message, channel))
+    }
+}
 fun Kord.createCommand(prefix : Char, command : ArrayList<String>, commandEvent : suspend CommandEvent.()->Unit) {
     val kord = this
     kord.on<MessageCreateEvent> {
@@ -31,6 +54,50 @@ fun Kord.createCommand(prefix : Char, command : ArrayList<String>, commandEvent 
     }
 }
 
+fun Kord.createCommand(prefix : Char, command : String, argsSize : Int, argsType : Int, commandEvent : suspend CommandEvent.()->Unit, argsEvent : suspend ArgsEvent.()->Unit) {
+    val kord = this
+    kord.on<MessageCreateEvent> {
+        val user = message.author ?: return@on
+        val channel = message.channel
+
+        try {
+            if (message.content[0] != prefix) return@on
+        } catch (_: StringIndexOutOfBoundsException) {
+        }
+        if (user.isBot) return@on
+
+        val args = ArrayList<String>()
+        for (i in message.content.replace(prefix.toString(), "").split(" ")) {
+            args.add(i)
+        }
+        val cmd = args[0]
+        args.removeAt(0)
+
+        if (cmd != command) return@on
+        if(argsType == ArgsType.EQUALS && argsSize != args.size) {
+            argsEvent(ArgsEvent(cmd, args, user, message, channel))
+            return@on
+        }
+        if(argsType == ArgsType.LESS_THAN && argsSize >= args.size) {
+            argsEvent(ArgsEvent(cmd, args, user, message, channel))
+            return@on
+        }
+        if(argsType == ArgsType.GREATER_THAN && argsSize <= args.size) {
+            argsEvent(ArgsEvent(cmd, args, user, message, channel))
+            return@on
+        }
+        if(argsType == ArgsType.IS_LESS_THAN_EQUAL_TO && args.size > argsSize) {
+            argsEvent(ArgsEvent(cmd, args, user, message, channel))
+            return@on
+        }
+        if(argsType == ArgsType.IS_GREATER_THAN_EQUAL_TO && args.size < argsSize) {
+            argsEvent(ArgsEvent(cmd, args, user, message, channel))
+            return@on
+        }
+
+        commandEvent(CommandEvent(cmd, args, user, message, channel))
+    }
+}
 fun Kord.createCommand(prefix : Char, command : ArrayList<String>, argsSize : Int, argsType : Int, commandEvent : suspend CommandEvent.()->Unit, argsEvent : suspend ArgsEvent.()->Unit) {
     val kord = this
     kord.on<MessageCreateEvent> {
