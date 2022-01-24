@@ -1,4 +1,4 @@
-package kr.blugon.message
+package kr.blugon.kordmand.message
 
 import dev.kord.core.behavior.channel.MessageChannelBehavior
 import dev.kord.core.behavior.channel.createMessage
