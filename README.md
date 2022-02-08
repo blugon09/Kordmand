@@ -1,9 +1,9 @@
 # Kordmand
 
-[![Kordmand](https://img.shields.io/badge/Kordmand-1.0.2_SNAPSHOT-blue.svg)]()
+[![Kordmand](https://img.shields.io/badge/Kordmand-1.0.4_SNAPSHOT-blue.svg)]()
 <br><br>
 [![Java](https://img.shields.io/badge/Java-11-FF7700.svg?logo=java)]()
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.6.0-186FCC.svg?logo=kotlin)]()
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.6.10-186FCC.svg?logo=kotlin)]()
 
 
 <br>

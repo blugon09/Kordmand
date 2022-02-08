@@ -1,11 +1,11 @@
 plugins {
-    kotlin("jvm") version "1.6.0"
+    kotlin("jvm") version "1.6.10"
     id("org.jetbrains.dokka") version "1.5.0"
     `maven-publish`
 }
 
 group = "kr.blugon"
-version = "1.0.3-SNAPSHOT"
+version = "1.0.4-SNAPSHOT"
 
 
 java {
@@ -21,7 +21,7 @@ repositories {
 
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
 
     implementation("dev.kord:kord-core:0.8.0-M8")
     implementation("org.json:json:20190722")

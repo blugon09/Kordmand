@@ -1,4 +1,4 @@
-package kr.blugon.embed
+package kr.blugon.kordmand.embed
 
 import dev.kord.rest.builder.message.EmbedBuilder
 

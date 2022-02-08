@@ -1,7 +1,8 @@
-package kr.blugon.command
+package kr.blugon.kordmand.command
 
 import dev.kord.core.Kord
 import dev.kord.core.behavior.channel.MessageChannelBehavior
+import dev.kord.core.entity.Guild
 import dev.kord.core.entity.Message
 import dev.kord.core.entity.User
 import dev.kord.core.event.message.MessageCreateEvent
@@ -122,19 +123,19 @@ fun Kord.createCommand(prefix : Char, command : ArrayList<String>, argsSize : In
             argsEvent(ArgsEvent(cmd, args, user, message, channel))
             return@on
         }
-        if(argsType == ArgsType.LESS_THAN && argsSize >= args.size) {
+        if(argsType == ArgsType.LESS_THAN && argsSize <= args.size) {
             argsEvent(ArgsEvent(cmd, args, user, message, channel))
             return@on
         }
-        if(argsType == ArgsType.GREATER_THAN && argsSize <= args.size) {
+        if(argsType == ArgsType.GREATER_THAN && argsSize >= args.size) {
             argsEvent(ArgsEvent(cmd, args, user, message, channel))
             return@on
         }
-        if(argsType == ArgsType.IS_LESS_THAN_EQUAL_TO && args.size > argsSize) {
+        if(argsType == ArgsType.IS_LESS_THAN_EQUAL_TO && argsSize < args.size) {
             argsEvent(ArgsEvent(cmd, args, user, message, channel))
             return@on
         }
-        if(argsType == ArgsType.IS_GREATER_THAN_EQUAL_TO && args.size < argsSize) {
+        if(argsType == ArgsType.IS_GREATER_THAN_EQUAL_TO && argsSize > args.size) {
             argsEvent(ArgsEvent(cmd, args, user, message, channel))
             return@on
         }
