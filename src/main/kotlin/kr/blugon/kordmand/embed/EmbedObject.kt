@@ -45,9 +45,15 @@ class EmbedObject(var title: String) {
             embedThumbnail.url = thumbnail!!
             embed.thumbnail = embedThumbnail
         }
-        embed.footer = footer!!.build()
-        embed.author = author!!.build()
-        embed.image = image
+        if(footer != null) {
+            embed.footer = footer!!.build()
+        }
+        if(author != null) {
+            embed.author = author!!.build()
+        }
+        if(image != null) {
+            embed.image = image
+        }
 
         return embed
     }
